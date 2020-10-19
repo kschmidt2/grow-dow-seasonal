@@ -12,13 +12,13 @@ Highcharts.setOptions({
     }
 });
 
-let chartId = document.getElementById("chart-container");
+let chartIdDowS = document.getElementById("chart-container-dow-seasonal");
 
 // checks for the chart ID and displays a backup image if the browser can't find it
 setTimeout(function() {
-    if(chartId.innerHTML === "") {
+    if(chartIdDowS.innerHTML === "") {
         // console.log('noId');
-        let chartArea = document.getElementsByClassName("chart-area");
+        let chartArea = document.getElementsByClassName("chart-area-dow-seasonal");
         for(var i = 0; i < chartArea.length; i++) {
             chartArea[i].style.display = "none";
         } 
@@ -30,9 +30,9 @@ setTimeout(function() {
 },500);
 
 function drawHighcharts() {
-    Highcharts.chart(chartId, {
+    Highcharts.chart(chartIdDowS, {
         chart: {
-            type: 'bar',
+            type: 'column',
             styledMode: true,
             spacingBottom: 25,
             spacingRight: 100,
@@ -43,12 +43,13 @@ function drawHighcharts() {
             text: null
         },
         data: {
-            googleSpreadsheetKey: '1YOKb5l2VM4aAB2r20N_1aT_1vEajYrP3U-U3A6lZbC0'
+            googleSpreadsheetKey: '1Cv2TSRvvHneYclsdABoBO1ojHiwWURNowWNqxoutzQ0'
         },
         // for bar charts only
         plotOptions: {
             series: {
-                groupPadding: 0.1
+                groupPadding: 0.15,
+                clip: false
             } 
         },
         // for line charts only
@@ -94,6 +95,9 @@ function drawHighcharts() {
                 useHTML: true,
                 overflow: 'allow'
             },
+            min: -10,
+            max: 20,
+            tickAmount: 7
             // adds commas to thousands
             // formatter: function () {
             //     return Highcharts.numberFormat(this.value,0,'.',',');
@@ -104,7 +108,9 @@ function drawHighcharts() {
         },
         tooltip: {
             shadow: false,
-            padding: 10
+            padding: 10,
+            valueSuffix: '%',
+            shared: true
         },
         responsive: {
             rules: [{
